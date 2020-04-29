@@ -81,7 +81,7 @@
         let map = L.map('map')
                 .addLayer(tiles);
 
-        let markers = L.markerClusterGroup();
+        let markers = L.markerClusterGroup({maxClusterRadius:40});
 
         let geoJsonLayer = L.geoJson(geoJsonData, {
             onEachFeature: function (feature, layer) {
