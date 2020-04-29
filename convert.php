@@ -6,6 +6,7 @@ $app_id = $_ENV['APPID'];
 $yahoo_geo_url = 'https://map.yahooapis.jp/geocode/V1/geoCoder';
 $source_url = 'https://peraichi.com/landing_pages/view/toyonaka2020ouen';
 $output_filename = 'toyonaka_takeout_data.json';
+$source_checkfile = 'source_update.txt';
 
 $body = file_get_contents($source_url);
 
@@ -13,6 +14,12 @@ function _fw_mb_trim($pString)
 {
     return preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $pString);
 }
+
+preg_match('/最終更新日時(.+?)</', $body, $match);
+if (file_get_contents($source_checkfile) == $match[1]) {
+    exit(1);
+}
+file_put_contents($source_checkfile, $match[1]);
 
 // xpathで簡単に抽出しようかと思ったけど、プログラム向けの法則性があるHTMLではなかったので、文脈から認識させる
 $total_len = strlen($body);
@@ -73,3 +80,5 @@ file_put_contents($output_filename, json_encode([
     'updatetime' => $dt->format('Y-m-d H:i:s'),
     'data' => $all_data
 ]));
+
+exit(0);
