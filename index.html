@@ -14,7 +14,6 @@
             font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
             display: flex;
             flex-direction: column;
-            height:100vh;
         }
         .navbar {
             background-color:#e94f07;
@@ -27,7 +26,7 @@
             margin: 3.5rem 1.5rem 0rem;
         }
         .map_area {
-            flex: 1 0 auto;
+            height: 90vh;
         }
         iframe {
             width:100%;
@@ -47,15 +46,15 @@
     <section class="section" id="explanation">
         <div class="container">
             <div class="tile">
-                <p>
+                <div>
                     <a href="https://peraichi.com/landing_pages/view/toyonaka2020ouen" target="_blank">豊中テイクアウト報道</a>で紹介されているお店を地図上に表示したものです。<br>
                     <span class="has-text-danger">事前に予約が必要な店や、休業日があります。</span>
                     リンク先の店舗情報を確認してください。<br>
                     地図上の数字は、複数件の情報があります。タッチすると表示されます。<br>
-                </p>
-                <p>
-                    更新日時:<div id="updatetime"></div>
-                </p>
+                </div>
+                <div>
+                    更新日時:<span id="updatetime"></span>
+                </div>
             </div>
         </div>
     </section>
