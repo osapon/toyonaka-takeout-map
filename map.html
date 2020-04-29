@@ -23,12 +23,18 @@
 </head>
 <body>
     <div id="map"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 <script>
-    fetch('toyonaka_takeout_data.json')
-    .then(response => response.json())
-    .then(takeout_data => {
+    // IE11も考慮する・・・
+    $.ajax({
+        url:'toyonaka_takeout_data.json',
+        type:'GET',
+        cache :false,
+        dataType: 'json'
+    }).done(function(response) {
+        takeout_data = response;
         let geoJsonData = {
             "type": "FeatureCollection",
             "features": takeout_data.data
