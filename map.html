@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster.list@0.4.4/dist/leaflet-markercluster-list.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700" rel="stylesheet">
     <style>
         body {
@@ -15,9 +16,19 @@
             margin:0;
             padding:0;
         }
-        #map{
+        #map {
             width:100%;
             height:100%;
+        }
+        .shoplist a, .shoplist a:hover {
+            display: inline;
+            line-height: 100%;
+            border: none;
+            background-color: rgba(255,255,255,0);
+            color: #0078A8;
+        }
+        .markercluster-list .table-wrapper table tbody tr.cluster-list-row-even {
+            background-color: #FFF;
         }
     </style>
 </head>
@@ -26,6 +37,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster.list@0.4.4/dist/leaflet-markercluster-list.js"></script>
 <script>
     // IE11も考慮する・・・
     $.ajax({
@@ -44,13 +56,27 @@
 
         let tiles = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="https://peraichi.com/landing_pages/view/toyonaka2020ouen" target="_blank">豊中テイクアウト報道</a> | &copy; <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+            attribution: '&copy; <a href="https://peraichi.com/landing_pages/view/toyonaka2020ouen" target="_blank">豊中テイクアウト報道</a> | &copy; <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
+
         });
 
         let map = L.map('map')
                 .addLayer(tiles);
+        let options = {
+            maxClusterRadius: 40,
+            labelFn: function(el, ei, cluster) {
+                console.log(el);
+                return (
+                    '<div class="shoplist">' +
+                    el.feature.properties.popup.replace("<br>","") +
+                    "</div>"
+                );
+            },
+            centerOnChange: true,
+            sidePanel:true
+        };
+        let markers = L.markerClusterGroup.withList(options);
 
-        let markers = L.markerClusterGroup({maxClusterRadius:40});
 
         let geoJsonLayer = L.geoJson(geoJsonData, {
             onEachFeature: function (feature, layer) {
