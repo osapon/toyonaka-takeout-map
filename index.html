@@ -6,30 +6,24 @@
     <title>豊中テイクアウト報道マップ</title>
     <meta property="og:title" content="豊中テイクアウト報道マップ" />
     <meta property="og:description" content="豊中テイクアウト報道の一覧を地図上に表示します。" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
     <meta name="google-site-verification" content="g57aNio7l0ap2pF0z0YnCj0NRhjW9_eDGFQulxyKZjw" />
     <style>
+        html, body {
+            height: 100%;
+        }
         body {
-            font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
-            display: flex;
-            flex-direction: column;
+            font-family: 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
         }
         .navbar {
             background-color:#e94f07;
         }
-        .navbar-item {
+        .navbar div {
             color:#fff;
         }
-        #explanation {
-            padding: 0;
-            margin: 3.5rem 1.5rem 0rem;
-        }
-        .map_area {
-            height: 90vh;
+        .navbar a {
+            color:#00f;
         }
         iframe {
             width:100%;
@@ -39,29 +33,23 @@
         }
     </style>
 </head>
-<body>
-    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <div class="navbar-item">豊中テイクアウト報道マップ</div>
-            <div class="navbar-item">非公式サイトです(<a href="https://github.com/osapon/toyonaka-takeout-map">ソース</a>)</div>
-        </div>
+<body class="flex flex-col">
+    <nav class="flex justify-start navbar">
+        <div class="mx-8">豊中テイクアウト報道マップ</div>
+        <div class="mx-8">非公式サイトです(<a href="https://github.com/osapon/toyonaka-takeout-map">ソース</a>)</div>
     </nav>
-    <section class="section" id="explanation">
-        <div class="container">
-            <div class="tile">
-                <div>
-                    <a href="https://peraichi.com/landing_pages/view/toyonaka2020ouen" target="_blank">豊中テイクアウト報道</a>で紹介されているお店を地図上に表示したものです。<br>
-                    <span class="has-text-danger">事前に予約が必要な店や、休業日があります。</span>
-                    リンク先の店舗情報を確認してください。<br>
-                    地図上の数字は、複数件の情報があります。タッチすると表示されます。<br>
-                </div>
-                <div>
-                    更新日時:<span id="updatetime"></span>
-                </div>
-            </div>
+    <section class="flex justify-start">
+        <div>
+            <a href="https://peraichi.com/landing_pages/view/toyonaka2020ouen" target="_blank">豊中テイクアウト報道</a>で紹介されているお店を地図上に表示したものです。<br>
+            <span class="has-text-danger">事前に予約が必要な店や、休業日があります。</span>
+            リンク先の店舗情報を確認してください。<br>
+            地図上の数字は、複数件の情報があります。タッチすると表示されます。<br>
+        </div>
+        <div>
+            更新日時:<span id="updatetime"></span>
         </div>
     </section>
-    <section class="map_area">
+    <section class="flex-grow">
         <iframe src="./map.html"></iframe>
     </section>
 </body>
