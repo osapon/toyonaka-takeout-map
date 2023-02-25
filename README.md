@@ -1,5 +1,7 @@
 # toyonaka-takeout-map
 
+## ページ構成が大きく変更されたため、もうこのプログラムは動きません。
+
 [豊中テイクアウト報道](https://peraichi.com/landing_pages/view/toyonaka2020ouen)の店舗情報を地図上に表示します。
 
 実際のサイトは [https://toyonaka-takeout-map.netlify.app/] で閲覧できます。
